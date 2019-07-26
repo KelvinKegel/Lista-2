@@ -6,8 +6,11 @@ using TMPro;
 
 public class Game : MonoBehaviour
 {
+    Player player_ref;
 
-    public GameObject theEnemy;
+    [SerializeField]
+    GameObject[] prefabsInimigos = new GameObject[4];
+
     public int xPos;
     public int zPos;
 
@@ -38,6 +41,8 @@ public class Game : MonoBehaviour
         timerStart = Time.time;
         timerStartEnemy = Time.time;
         timerStartDif = Time.time;
+        if (!player_ref || player_ref == null)
+            player_ref = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     void Update()
@@ -50,10 +55,10 @@ public class Game : MonoBehaviour
         if (Time.time >= timerStartEnemy + timerMaxEnemy)
         {
             timerStartEnemy = Time.time;
-            EnemyDrop();
+            EnemySpawn();
         }
 
-        if (Time.time >= timerStart + timerMax)
+        if (Time.time >= timerStart + timerMax && player_ref.Life > 0)
         {
             timerStart = Time.time;
             score += 5;
@@ -63,17 +68,23 @@ public class Game : MonoBehaviour
 
     }
 
+    
 
-
-    public void EnemyDrop()
+    public void EnemySpawn()
     {
         int enemyCount = 0;
-        while (enemyCount < 3)
+
+        if (player_ref.isAlive())
         {
-            xPos = Random.Range(8, -8);
-            zPos = Random.Range(5, -5);
-            Instantiate(theEnemy, new Vector3(xPos, 0.2f, zPos), Quaternion.identity);
-            enemyCount += 1;
+          for (int i = 0; i < 3; i++)
+          {
+               xPos = Random.Range(8, -8);
+               zPos = Random.Range(5, -5);
+                
+               Instantiate(prefabsInimigos[Random.Range(0,4)], new Vector3(xPos, 0.2f, zPos), Quaternion.identity);
+               enemyCount += 1;
+          }
         }
+
     }
 }

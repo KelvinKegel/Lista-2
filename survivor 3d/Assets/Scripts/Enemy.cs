@@ -15,22 +15,30 @@ public class Enemy : MonoBehaviour
 
     public float lookAtTimer = 0;
     public float maxTimer = 2f;
+    [SerializeField]
+    int forca;
 
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag == "Player")
         {
-            other.GetComponent<Player>().Life -= 2;
+            attack(other.GetComponent<Player>());
 
-            enemyLife -= 3;
-            if (enemyLife <= 0)
-            {
-                Destroy(gameObject);
-            }
+            death();
         }
     }
     private void Start()
+    {
+        init();
+
+    }
+    void Update()
+    {
+        move();
+    }
+
+    public virtual void init()
     {
         if (!player || player == null)
         {
@@ -39,17 +47,27 @@ public class Enemy : MonoBehaviour
 
         lookAtTimer = Time.time;
         transform.LookAt(player.transform);
-
     }
-    void Update()
+
+    public virtual void move()
     {
         transform.position += transform.forward * movementSpeed * Time.deltaTime;
         //print(( maxTimer + lookAtTimer) + " | " + Time.time);
         if ((lookAtTimer + maxTimer) <= Time.time)
         {
-            
+
             lookAtTimer = Time.time;
             transform.LookAt(player.transform);
         }
+    }
+
+    public virtual void death()
+    {
+        Destroy(gameObject);
+    }
+
+    public virtual void attack(Player alvo)
+    {
+        alvo.Life -= forca;
     }
 }
