@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 
-    public GameObject Player;
+    public GameObject player;
 
     [SerializeField]
     float movementSpeed = 4;
@@ -32,8 +32,14 @@ public class Enemy : MonoBehaviour
     }
     private void Start()
     {
+        if (!player || player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
+
         lookAtTimer = Time.time;
-        transform.LookAt(Player.transform);
+        transform.LookAt(player.transform);
+
     }
     void Update()
     {
@@ -43,7 +49,7 @@ public class Enemy : MonoBehaviour
         {
             
             lookAtTimer = Time.time;
-            transform.LookAt(Player.transform);
+            transform.LookAt(player.transform);
         }
     }
 }

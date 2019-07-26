@@ -25,15 +25,30 @@ public class Player : MonoBehaviour
             life = value;
         }
     }
+
+    private float timerStart;
+    [SerializeField]
+    private float timerMax;
+    [SerializeField]
+    private float lifeMax;
+
     // Start is called before the first frame update
     void Start()
     {
-        textoHP.text = "Health: " + Life;
+        timerStart = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        textoHP.text = "Health: " + Life;
+
+        if(Time.time >= timerStart + timerMax)
+        {
+            timerStart = Time.time;
+
+            if(Life < lifeMax)
+                Life ++;
+        }
     }
 }
