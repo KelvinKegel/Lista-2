@@ -36,6 +36,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         move();
+
     }
 
     public virtual void init()
@@ -52,13 +53,7 @@ public class Enemy : MonoBehaviour
     public virtual void move()
     {
         transform.position += transform.forward * movementSpeed * Time.deltaTime;
-        //print(( maxTimer + lookAtTimer) + " | " + Time.time);
-        if ((lookAtTimer + maxTimer) <= Time.time)
-        {
 
-            lookAtTimer = Time.time;
-            transform.LookAt(player.transform);
-        }
     }
 
     public virtual void death()

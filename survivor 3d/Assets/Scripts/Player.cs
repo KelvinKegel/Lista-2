@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     bool alive = true;
 
     float horizontal;
+    float vertical;
     Rigidbody body;
 
     [SerializeField]
@@ -60,8 +61,9 @@ public class Player : MonoBehaviour
 
         if(alive)
         {
+            vertical = Input.GetAxisRaw("Vertical");
             horizontal = Input.GetAxisRaw("Horizontal");
-            body.velocity = new Vector3(horizontal * speed, 0, 0);
+            body.velocity = new Vector3(horizontal * speed, 0, vertical * speed);
 
             if(Time.time >= timerStart + timerMax)
             {

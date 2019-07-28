@@ -79,7 +79,16 @@ public class Game : MonoBehaviour
           for (int i = 0; i < 3; i++)
           {
                xPos = Random.Range(8, -8);
-               zPos = Random.Range(5, -5);
+
+                zPos = Random.Range(5, -5);
+                if(zPos >= 0)
+                {
+                    zPos = 5;
+                }
+                else
+                {
+                    zPos = -5;
+                }
                 
                Instantiate(prefabsInimigos[Random.Range(0,4)], new Vector3(xPos, 0.2f, zPos), Quaternion.identity);
                enemyCount += 1;
