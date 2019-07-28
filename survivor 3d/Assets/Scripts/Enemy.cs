@@ -1,23 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-
     public GameObject player;
 
     [SerializeField]
-    float movementSpeed = 4;
+    private float movementSpeed = 4;
 
     [SerializeField]
-    protected int enemyLife = 3; 
+    protected int enemyLife = 3;
 
     public float lookAtTimer = 0;
     public float maxTimer = 2f;
-    [SerializeField]
-    int forca;
 
+    [SerializeField]
+    private int forca;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -28,15 +25,15 @@ public class Enemy : MonoBehaviour
             death();
         }
     }
+
     private void Start()
     {
         init();
-
     }
-    void Update()
+
+    private void Update()
     {
         move();
-
     }
 
     public virtual void init()
@@ -53,7 +50,6 @@ public class Enemy : MonoBehaviour
     public virtual void move()
     {
         transform.position += transform.forward * movementSpeed * Time.deltaTime;
-
     }
 
     public virtual void death()

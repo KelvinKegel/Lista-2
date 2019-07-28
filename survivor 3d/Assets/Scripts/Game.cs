@@ -1,42 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+﻿using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    Player player_ref;
+    private Player player_ref;
 
     [SerializeField]
-    GameObject[] prefabsInimigos = new GameObject[4];
+    private GameObject[] prefabsInimigos = new GameObject[4];
 
     public int xPos;
     public int zPos;
 
-    public TextMeshProUGUI scoreText;
-    
     private float timerStart;
+
     [SerializeField]
     private float timerMax;
-    [SerializeField]
-    private int score;
-
 
     [SerializeField]
     private float timerStartEnemy;
+
     [SerializeField]
     private float timerMaxEnemy;
 
     [SerializeField]
     private float timerStartDif;
+
     [SerializeField]
     private float timerMaxDif;
-    [SerializeField]
-    [Range(0.1f,1.0f)]
-    float spawnIncrease;
 
-    void Start()
+    [SerializeField]
+    [Range(0.1f, 1.0f)]
+    private float spawnIncrease;
+
+    private void Start()
     {
         timerStart = Time.time;
         timerStartEnemy = Time.time;
@@ -45,30 +40,19 @@ public class Game : MonoBehaviour
             player_ref = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
-    void Update()
+    private void Update()
     {
         if (Time.time >= timerStartDif + timerMaxDif)
         {
             timerStartDif = Time.time;
-            timerMaxEnemy *= spawnIncrease;        
+            timerMaxEnemy *= spawnIncrease;
         }
         if (Time.time >= timerStartEnemy + timerMaxEnemy)
         {
             timerStartEnemy = Time.time;
             EnemySpawn();
         }
-
-        if (Time.time >= timerStart + timerMax && player_ref.Life > 0)
-        {
-            timerStart = Time.time;
-            score += 5;
-
-            scoreText.text = "Score: " + score;
-        }
-
     }
-
-    
 
     public void EnemySpawn()
     {
@@ -76,12 +60,12 @@ public class Game : MonoBehaviour
 
         if (player_ref.isAlive())
         {
-          for (int i = 0; i < 3; i++)
-          {
-               xPos = Random.Range(8, -8);
+            for (int i = 0; i < 3; i++)
+            {
+                xPos = Random.Range(8, -8);
 
                 zPos = Random.Range(5, -5);
-                if(zPos >= 0)
+                if (zPos >= 0)
                 {
                     zPos = 5;
                 }
@@ -89,11 +73,10 @@ public class Game : MonoBehaviour
                 {
                     zPos = -5;
                 }
-                
-               Instantiate(prefabsInimigos[Random.Range(0,4)], new Vector3(xPos, 0.2f, zPos), Quaternion.identity);
-               enemyCount += 1;
-          }
-        }
 
+                Instantiate(prefabsInimigos[Random.Range(0, 4)], new Vector3(xPos, 0.2f, zPos), Quaternion.identity);
+                enemyCount += 1;
+            }
+        }
     }
 }

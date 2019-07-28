@@ -1,16 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Cylinder : Enemy
 {
-
-    void Start()
+    private void Start()
     {
         init();
     }
-    
-    void Update()
+
+    private void Update()
     {
         move();
     }
