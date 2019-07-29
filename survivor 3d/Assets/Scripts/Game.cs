@@ -7,6 +7,9 @@ public class Game : MonoBehaviour
     [SerializeField]
     private GameObject[] prefabsInimigos = new GameObject[4];
 
+    [SerializeField]
+    private GameObject[] prefabsPowerUp = new GameObject[2];
+
     public int xPos;
     public int zPos;
 
@@ -19,7 +22,13 @@ public class Game : MonoBehaviour
     private float timerStartEnemy;
 
     [SerializeField]
+    private float timerStartPowerUp;
+
+    [SerializeField]
     private float timerMaxEnemy;
+
+    [SerializeField]
+    private float timerMaxPowerUp;
 
     [SerializeField]
     private float timerStartDif;
@@ -52,6 +61,11 @@ public class Game : MonoBehaviour
             timerStartEnemy = Time.time;
             EnemySpawn();
         }
+        if (Time.time >= timerStartPowerUp + timerMaxPowerUp)
+        {
+            timerStartPowerUp = Time.time;
+            PowerUpSpawn();
+        }
     }
 
     public void EnemySpawn()
@@ -76,6 +90,24 @@ public class Game : MonoBehaviour
 
                 Instantiate(prefabsInimigos[Random.Range(0, 4)], new Vector3(xPos, 0.2f, zPos), Quaternion.identity);
                 enemyCount += 1;
+            }
+        }
+    }
+
+    public void PowerUpSpawn()
+    {
+        int PowerUpCount = 0;
+
+        if (player_ref.isAlive())
+        {
+            for (int i = 0; i < 1; i++)
+            {
+                xPos = Random.Range(6, -6);
+
+                zPos = Random.Range(4, -4);
+
+                Instantiate(prefabsPowerUp[Random.Range(0, 2)], new Vector3(xPos, 0.2f, zPos), Quaternion.identity);
+                PowerUpCount += 1;
             }
         }
     }

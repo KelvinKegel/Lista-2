@@ -15,8 +15,30 @@ public class Player : MonoBehaviour
     [SerializeField]
     private bool isPlayerOne = true;
 
-    [SerializeField]
-    private int score;
+     [SerializeField]
+    private int score = 0;
+
+    public int Score
+    {
+        get
+        {
+            return score;
+        }
+        set
+        {
+            if (value <= 0)
+            {
+               score = 0;
+               
+            }
+            else
+            {
+                score = value;
+            }
+
+           scoreText.text = "Score: " + score;
+        }
+    }
 
     private float horizontal;
     private float vertical;
@@ -24,7 +46,7 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private float speed = 2f;
-
+ [SerializeField]
     private int life = 10;
 
     public int Life
@@ -49,10 +71,13 @@ public class Player : MonoBehaviour
             {
                 life = value;
             }
+
+            textoHP.text = "Health" + life;
         }
     }
 
     private float timerStart;
+    private float timerStartScore;
 
     [SerializeField]
     private float timerMax;
@@ -67,7 +92,10 @@ public class Player : MonoBehaviour
     private void Start()
     {
         timerStart = Time.time;
+        timerStartScore = Time.time;
         body = GetComponent<Rigidbody>();
+        textoHP.text = "Health" + Life;
+        scoreText.text = "Score: " + Score;
     }
 
     // Update is called once per frame
@@ -79,20 +107,17 @@ public class Player : MonoBehaviour
             {
                 timerStart = Time.time;
 
-                if (Life < lifeMax)
-                {
+              
                     Life++;
-                    print("print printo");
-                    textoHP.text = "Health: " + Life;
-                }
+                    
+                
             }
 
-            if (Time.time >= timerStart + timerMaxScore && Life > 0)
+            if (Time.time >= timerStartScore + timerMaxScore && Life > 0)
             {
-                timerStart = Time.time;
-                score += 5;
-
-                scoreText.text = "Score: " + score;
+                timerStartScore = Time.time;
+                Score += 5;
+              
             }
 
             if (isPlayerOne == true)
