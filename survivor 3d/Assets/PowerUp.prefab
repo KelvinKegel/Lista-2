@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6645083865379517780}
   - component: {fileID: 8825713320002221051}
   - component: {fileID: 2786946463871980352}
-  - component: {fileID: -2315148946885282686}
+  - component: {fileID: -8969768307971366286}
   m_Layer: 0
   m_Name: PowerUp
   m_TagString: Untagged
@@ -92,7 +92,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-2315148946885282686
+--- !u!114 &-8969768307971366286
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,4 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79a7622d1ee466541bdce2f35662735b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupEffect: {fileID: 100000, guid: 8f8a4cd20bdf7f845ab3768cae8aceed, type: 3}
+  pickupEffect: {fileID: 1000011945391522, guid: 78b71003e8b357d4bbf89c8b5e5e4f0e,
+    type: 3}
+  multiplier: 0.5
+  duration: 5
